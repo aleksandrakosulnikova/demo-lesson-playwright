@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test'
-import { faker } from "@faker-js/faker"
+import { faker } from '@faker-js/faker'
 
 export class OrderPage {
   readonly page: Page
@@ -31,19 +31,18 @@ export class OrderPage {
     await expect(this.nameInput).toBeVisible()
     await expect(this.phoneInput).toBeVisible()
     await expect(this.commentInput).toBeVisible()
-    await this.checkCreateOrderBtnEnabled(false);
+    await this.checkCreateOrderBtnEnabled(false)
   }
 
   async createOrder(): Promise<void> {
-    await this.nameInput.fill(faker.person.firstName());
-    await this.phoneInput.fill(faker.phone.number());
-    await this.commentInput.fill(faker.lorem.sentence(5));
-    await this.createOrderButton.click();
-    await expect(this.confirmationPopup).toBeVisible();
+    await this.nameInput.fill(faker.person.firstName())
+    await this.phoneInput.fill(faker.phone.number())
+    await this.commentInput.fill(faker.lorem.sentence(5))
+    await this.createOrderButton.click()
+    await expect(this.confirmationPopup).toBeVisible()
   }
 
   async checkCreateOrderBtnEnabled(enabled: boolean): Promise<void> {
-    await expect(this.createOrderButton).toBeEnabled({enabled})
-
+    await expect(this.createOrderButton).toBeEnabled({ enabled })
   }
 }

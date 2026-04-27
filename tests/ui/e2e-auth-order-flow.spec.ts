@@ -6,41 +6,39 @@ import { faker } from '@faker-js/faker'
 test('Login test + order page components check', async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.open()
-  const orderPage = await loginPage.signIn(USERNAME, PASSWORD);
+  const orderPage = await loginPage.signIn(USERNAME, PASSWORD)
   await orderPage.checkInnerComponents()
 })
 
-
 test('Create order test', async ({ page }) => {
   const loginPage = new LoginPage(page)
-  await loginPage.open();
-  const orderPage = await loginPage.signIn(USERNAME, PASSWORD);
-  await orderPage.createOrder();
+  await loginPage.open()
+  const orderPage = await loginPage.signIn(USERNAME, PASSWORD)
+  await orderPage.createOrder()
 })
 
 test('Validation test on order creation', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  const orderPage = await loginPage.signIn(USERNAME, PASSWORD);
+  const loginPage = new LoginPage(page)
+  await loginPage.open()
+  const orderPage = await loginPage.signIn(USERNAME, PASSWORD)
 
-  await orderPage.nameInput.fill("1");
-  await orderPage.phoneInput.fill(faker.phone.number());
-  await orderPage.checkInnerComponents(false);
+  await orderPage.nameInput.fill('1')
+  await orderPage.phoneInput.fill(faker.phone.number())
+  await orderPage.checkInnerComponents(false)
 
-  await orderPage.nameInput.fill(faker.person.firstName());
-  await orderPage.phoneInput.fill("2");
-  await orderPage.checkInnerComponents(false);
+  await orderPage.nameInput.fill(faker.person.firstName())
+  await orderPage.phoneInput.fill('2')
+  await orderPage.checkInnerComponents(false)
 
-  await orderPage.nameInput.fill(faker.person.firstName());
-  await orderPage.phoneInput.fill(faker.phone.number());
-  await orderPage.checkInnerComponents(true);
+  await orderPage.nameInput.fill(faker.person.firstName())
+  await orderPage.phoneInput.fill(faker.phone.number())
+  await orderPage.checkInnerComponents(true)
 })
 
-
 test('Logout test', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.open();
-  const orderPage = await loginPage.signIn(USERNAME, PASSWORD);
-  await orderPage.logoutButton.click();
-  await loginPage.checkInnerComponents();
+  const loginPage = new LoginPage(page)
+  await loginPage.open()
+  const orderPage = await loginPage.signIn(USERNAME, PASSWORD)
+  await orderPage.logoutButton.click()
+  await loginPage.checkInnerComponents()
 })
