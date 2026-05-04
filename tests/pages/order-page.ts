@@ -27,8 +27,8 @@ export class OrderPage extends BasePage {
     this.statusButton = new Button(page.getByTestId('openStatusPopup-button'))
     this.createOrderButton = new Button(page.getByTestId('createOrder-button'))
     this.nameInput = new Input(page.getByTestId('username-input'))
-    this.phoneInput = new Input (page.getByTestId('phone-input'))
-    this.commentInput = new Input (page.getByTestId('comment-input'))
+    this.phoneInput = new Input(page.getByTestId('phone-input'))
+    this.commentInput = new Input(page.getByTestId('comment-input'))
     this.confirmationPopup = page.getByTestId('orderSuccessfullyCreated-popup')
     this.logoutButton = new Button(page.getByTestId('logout-button'))
 

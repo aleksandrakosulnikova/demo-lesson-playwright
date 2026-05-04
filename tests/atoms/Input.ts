@@ -12,7 +12,6 @@ export class Input {
   }
 
   async inputFill(value: string): Promise<void> {
-    await this.inpLocator.fill(value);
+    await this.inpLocator.fill(value)
   }
-
 }
