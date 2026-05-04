@@ -22,16 +22,16 @@ test('Validation test on order creation', async ({ page }) => {
   await loginPage.open()
   const orderPage = await loginPage.signIn(USERNAME, PASSWORD)
 
-  await orderPage.nameInput.fill('1')
-  await orderPage.phoneInput.fill(faker.phone.number())
+  await orderPage.nameInput.inputFill('1')
+  await orderPage.phoneInput.inputFill(faker.phone.number())
   await orderPage.createOrderButton.checkEnable(false)
 
-  await orderPage.nameInput.fill(faker.person.firstName())
-  await orderPage.phoneInput.fill('2')
+  await orderPage.nameInput.inputFill(faker.person.firstName())
+  await orderPage.phoneInput.inputFill('2')
   await orderPage.createOrderButton.checkEnable(false)
 
-  await orderPage.nameInput.fill(faker.person.firstName())
-  await orderPage.phoneInput.fill(faker.phone.number())
+  await orderPage.nameInput.inputFill(faker.person.firstName())
+  await orderPage.phoneInput.inputFill(faker.phone.number())
   await orderPage.createOrderButton.checkEnable(true)
 })
 

@@ -4,20 +4,21 @@ import { BasePage } from './base-page'
 import { Button } from '../atoms/Button'
 import { NotFoundPage } from './order-not-found-page'
 import { OrderDetailsPage } from './order-details-page'
+import { Input } from '../atoms/Input'
 
 export class OrderPage extends BasePage {
   readonly title: Locator
   readonly statusButton: Button
   readonly createOrderButton: Button
-  readonly nameInput: Locator
-  readonly phoneInput: Locator
-  readonly commentInput: Locator
+  readonly nameInput: Input
+  readonly phoneInput: Input
+  readonly commentInput: Input
   readonly confirmationPopup: Locator
   readonly logoutButton: Button
 
   // Search popup
   protected readonly searchPopup: Locator
-  readonly searchInput: Locator
+  readonly searchInput: Input
   readonly searchButton: Button
 
   constructor(page: Page) {
@@ -25,15 +26,15 @@ export class OrderPage extends BasePage {
     this.title = page.locator('h2')
     this.statusButton = new Button(page.getByTestId('openStatusPopup-button'))
     this.createOrderButton = new Button(page.getByTestId('createOrder-button'))
-    this.nameInput = page.getByTestId('username-input')
-    this.phoneInput = page.getByTestId('phone-input')
-    this.commentInput = page.getByTestId('comment-input')
+    this.nameInput = new Input(page.getByTestId('username-input'))
+    this.phoneInput = new Input(page.getByTestId('phone-input'))
+    this.commentInput = new Input(page.getByTestId('comment-input'))
     this.confirmationPopup = page.getByTestId('orderSuccessfullyCreated-popup')
     this.logoutButton = new Button(page.getByTestId('logout-button'))
 
     // Search popup
     this.searchPopup = page.getByTestId('searchOrder-popup')
-    this.searchInput = this.searchPopup.getByTestId('searchOrder-input')
+    this.searchInput = new Input(this.searchPopup.getByTestId('searchOrder-input'))
     this.searchButton = new Button(this.searchPopup.getByTestId('searchOrder-submitButton'))
   }
 
@@ -41,29 +42,29 @@ export class OrderPage extends BasePage {
     await expect(this.title).toBeVisible()
     await this.statusButton.checkVisible(true)
     await this.createOrderButton.checkVisible(true)
-    await expect(this.nameInput).toBeVisible()
-    await expect(this.phoneInput).toBeVisible()
-    await expect(this.commentInput).toBeVisible()
+    await this.nameInput.checkInputVisible(true)
+    await this.phoneInput.checkInputVisible(true)
+    await this.commentInput.checkInputVisible(true)
   }
 
   async createOrder(): Promise<void> {
-    await this.nameInput.fill(faker.person.firstName())
-    await this.phoneInput.fill(faker.phone.number())
-    await this.commentInput.fill(faker.lorem.sentence(5))
+    await this.nameInput.inputFill(faker.person.firstName())
+    await this.phoneInput.inputFill(faker.phone.number())
+    await this.commentInput.inputFill(faker.lorem.sentence(5))
     await this.createOrderButton.click()
     await expect(this.confirmationPopup).toBeVisible()
   }
 
   async checkOrderNotFound(): Promise<NotFoundPage> {
     await this.statusButton.click()
-    await this.searchInput.fill('0')
+    await this.searchInput.inputFill('0')
     await this.searchButton.click()
     return new NotFoundPage(this.page)
   }
 
   async checkOrderFound(id: number): Promise<OrderDetailsPage> {
     await this.statusButton.click()
-    await this.searchInput.fill(`${id}`)
+    await this.searchInput.inputFill(`${id}`)
     await this.searchButton.click()
     return new OrderDetailsPage(this.page)
   }
