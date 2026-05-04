@@ -6,7 +6,7 @@ export class OrderDetailsPage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.details = this.page.locator('.order-details')
+    this.details = this.page.locator('.order-details-page')
   }
 
   async checkVisible(visible: boolean): Promise<void> {

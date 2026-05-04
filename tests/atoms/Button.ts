@@ -7,8 +7,8 @@ export class Button {
     this.btnLocator = btnLocator
   }
 
-  async click(force = false): Promise<void> {
-    await this.btnLocator.click({ force })
+  async click(): Promise<void> {
+    await this.btnLocator.click()
   }
 
   async checkVisible(visible: boolean): Promise<void> {

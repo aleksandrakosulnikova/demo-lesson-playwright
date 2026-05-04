@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 import { LoginPage } from '../pages/login-page'
 import { PASSWORD, USERNAME } from '../../config/env-data'
 
-const correctOrderId = 17337
+const correctOrderId = 17888
 
 test('Not found page test', async ({ page }) => {
   const loginPage = new LoginPage(page)
@@ -19,5 +19,3 @@ test('Found page test', async ({ page }) => {
   const detailsPage = await orderPage.checkOrderFound(correctOrderId)
   await detailsPage.checkVisible(true)
 })
-
-//1.22.18

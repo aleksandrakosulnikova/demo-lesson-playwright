@@ -6,7 +6,6 @@ import { NotFoundPage } from './order-not-found-page'
 import { OrderDetailsPage } from './order-details-page'
 
 export class OrderPage extends BasePage {
-  readonly page: Page
   readonly title: Locator
   readonly statusButton: Button
   readonly createOrderButton: Button
@@ -23,7 +22,6 @@ export class OrderPage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.page = page
     this.title = page.locator('h2')
     this.statusButton = new Button(page.getByTestId('openStatusPopup-button'))
     this.createOrderButton = new Button(page.getByTestId('createOrder-button'))
@@ -36,7 +34,7 @@ export class OrderPage extends BasePage {
     // Search popup
     this.searchPopup = page.getByTestId('searchOrder-popup')
     this.searchInput = this.searchPopup.getByTestId('searchOrder-input')
-    this.searchButton = new Button(page.getByTestId('searchOrder-submitButton'))
+    this.searchButton = new Button(this.searchPopup.getByTestId('searchOrder-submitButton'))
   }
 
   async checkInnerComponents(): Promise<void> {
@@ -59,14 +57,14 @@ export class OrderPage extends BasePage {
   async checkOrderNotFound(): Promise<NotFoundPage> {
     await this.statusButton.click()
     await this.searchInput.fill('0')
-    await this.statusButton.click()
+    await this.searchButton.click()
     return new NotFoundPage(this.page)
   }
 
   async checkOrderFound(id: number): Promise<OrderDetailsPage> {
     await this.statusButton.click()
     await this.searchInput.fill(`${id}`)
-    await this.statusButton.click()
+    await this.searchButton.click()
     return new OrderDetailsPage(this.page)
   }
 }
